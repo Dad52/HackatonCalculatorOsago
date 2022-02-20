@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.ands.sravniruhackathon.presentation.fragments.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_enteringDataBtmSheet"
+            app:destination="@id/enteringDataBtmSheet" />
+        <action
+            android:id="@+id/action_mainFragment_to_resultBtmSheet"
+            app:destination="@id/resultBtmSheet" />
+        <action
+            android:id="@+id/action_mainFragment_to_offersFragment"
+            app:destination="@id/offersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/offersFragment"
+        android:name="com.ands.sravniruhackathon.presentation.fragments.OffersFragment"
+        android:label="fragment_offers"
+        tools:layout="@layout/fragment_offers" >
+        <action
+            android:id="@+id/action_offersFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultBtmSheet"
+        android:name="com.ands.sravniruhackathon.presentation.fragments.ResultBtmSheet"
+        android:label="fragment_result_btm_sheet"
+        tools:layout="@layout/fragment_result_btm_sheet" />
+    <fragment
+        android:id="@+id/enteringDataBtmSheet"
+        android:name="com.ands.sravniruhackathon.presentation.fragments.EnteringDataBtmSheet"
+        android:label="fragment_entering_data_btm_sheet"
+        tools:layout="@layout/fragment_entering_data_btm_sheet" />
+</navigation>

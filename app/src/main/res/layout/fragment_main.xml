@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/MainGray"
+    tools:context=".presentation.fragments.MainFragment">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/bottomCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/mainTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin16"
+                android:layout_marginEnd="@dimen/margin16"
+                android:fontFamily="@font/roboto_black"
+                android:text="@string/calculateOsago"
+                android:textColor="@color/MainBlack"
+                android:textSize="28sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/expandableCardLayout"
+                layout="@layout/expandable_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mainTitle" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin16"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/margin16"
+                android:layout_marginBottom="1dp"
+                android:padding="@dimen/margin16"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/expandableCardLayout">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/margin16"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/shape_corner_radius_12">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/regCityEditText"
+                            style="@style/inputWithoutTouchStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_corner_radius_12"
+                            android:hint="@string/RegTownText" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/shape_corner_radius_12">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/enginePowerEditText"
+                            style="@style/inputWithoutTouchStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_corner_radius_12"
+                            android:hint="@string/EnginePowerText" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/shape_corner_radius_12">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/quantityDriversEditText"
+                            style="@style/inputWithoutTouchStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_corner_radius_12"
+                            android:hint="@string/QuantityDriversText" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/shape_corner_radius_12">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/minDriverAgeEditText"
+                            style="@style/inputWithoutTouchStyle"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_corner_radius_12"
+                            android:hint="@string/MinDriverAgeText" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/shape_corner_radius_12">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/minDriverExpEditText"
+                            style="@style/inputWithoutTouchStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_corner_radius_12"
+                            android:hint="@string/minDriverExpText" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="@dimen/margin16"
+                        android:background="@drawable/shape_corner_radius_12">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/yearsWithoutAccidentsEditText"
+                            style="@style/inputWithoutTouchStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_corner_radius_12"
+                            android:hint="@string/YearsWithoutAccidentsText" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bottomCardView"
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/calculateOsagoBtn"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin16"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/margin16"
+            android:layout_marginBottom="@dimen/margin16"
+            android:enabled="false"
+            android:text="@string/CalculateOSAGOText"
+            android:textAllCaps="false" />
+
+        <View
+            android:layout_width="64dp"
+            android:layout_height="3dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/shape_corner_radius_12"
+            android:backgroundTint="@color/MainHintTextColor" />
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

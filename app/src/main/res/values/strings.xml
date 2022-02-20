@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">OsagoHackaton</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="CalculateOSAGOText">Рассчитать ОСАГО</string>
+    <string name="RegTownText">Город регистрации собственника</string>
+    <string name="EnginePowerText">Мощность автомобиля</string>
+    <string name="QuantityDriversText">Сколько водителей</string>
+    <string name="MinDriverAgeText">Возраст младшего из водителей</string>
+    <string name="minDriverExpText">Минимальный стаж водителей</string>
+    <string name="YearsWithoutAccidentsText">Сколько лет не было аварий</string>
+    <string name="CoeffsNamePlaceholder">(%1$s)</string>
+    <string name="PricePlaceholder">%1$s ₽</string>
+    <string name="calculateOsago">Калькулятор ОСАГО</string>
+    <string name="YourCoeffs">Ваши коэффициенты</string>
+    <string name="expand">expand</string>
+    <string name="expandcollapse">TODO</string>
+    <string name="coeffsHeader">БТ×КМ×КТ×КБМ×КО×КВС</string>
+    <string name="defaultPrice">2 754 - 4 432 ₽</string>
+    <string name="baseTariff">(базовый тариф)</string>
+    <string name="coeffBT">БТ</string>
+    <string name="InstalledByInsCompany">Устанавливает страховая компания</string>
+</resources>
