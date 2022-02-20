@@ -181,7 +181,7 @@
             android:id="@+id/calculateOsagoBtn"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="66dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/margin16"
             android:layout_marginTop="12dp"
