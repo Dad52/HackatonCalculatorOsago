@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OsagoHackaton</string>
+    <string name="app_name">SravniRuHackathon</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="CalculateOSAGOText">Рассчитать ОСАГО</string>
     <string name="RegTownText">Город регистрации собственника</string>
@@ -15,8 +15,66 @@
     <string name="expand">expand</string>
     <string name="expandcollapse">TODO</string>
     <string name="coeffsHeader">БТ×КМ×КТ×КБМ×КО×КВС</string>
-    <string name="defaultPrice">2 754 - 4 432 ₽</string>
+    <string name="defaultPrice">2 754 – 4 432 ₽</string>
     <string name="baseTariff">(базовый тариф)</string>
     <string name="coeffBT">БТ</string>
     <string name="InstalledByInsCompany">Устанавливает страховая компания</string>
+    <string name="SomeKindOfTitle">Какой-то заголовок</string>
+    <string name="next">Далее</string>
+    <string name="backLetter"><![CDATA[<]]></string>
+
+    <string-array name="citiesHints">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Новосибирск</item>
+        <item>Геленджик</item>
+        <item>Калининград</item>
+        <item>Нижний Новгород</item>
+        <item>Домбай</item>
+    </string-array>
+
+    <string-array name="enginePowerHints">
+        <item>до 50 л.с.</item>
+        <item>50–70 л.с.</item>
+        <item>70–100 л.с.</item>
+        <item>100–121 л.с.</item>
+        <item>121–150 л.с.</item>
+        <item>свыше 150 л.с.</item>
+    </string-array>
+
+    <string-array name="quantityDriversHints">
+        <item>Без ограничений</item>
+        <item>1 водитель</item>
+        <item>2 водителя</item>
+        <item>3 водителя</item>
+        <item>4 водителя</item>
+        <item>5 водителей</item>
+    </string-array>
+
+    <string-array name="minDriverAgeHints">
+        <item>18 лет</item>
+        <item>19 лет</item>
+        <item>20 лет</item>
+        <item>21 год</item>
+        <item>22 года</item>
+        <item>24 года</item>
+    </string-array>
+
+    <string-array name="minDriverExpHints">
+        <item>1 год</item>
+        <item>2 года</item>
+        <item>3 года</item>
+        <item>4 года</item>
+        <item>более 5 лет</item>
+    </string-array>
+
+    <string-array name="yearsWithoutAccidentsHints">
+        <item>Была авария в этом году</item>
+        <item>1 год</item>
+        <item>2 года</item>
+        <item>3 года</item>
+        <item>4 года</item>
+        <item>более 5 лет</item>
+    </string-array>
+
 </resources>

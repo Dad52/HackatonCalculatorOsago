@@ -1,22 +1,18 @@
 package com.ands.sravniruhackathon.presentation.fragments
 
-import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ands.sravniruhackathon.R
 import com.ands.sravniruhackathon.databinding.FragmentMainBinding
-import com.ands.sravniruhackathon.domain.entities.Coeffs
 import com.ands.sravniruhackathon.presentation.adapters.CoeffsAdapter
 import com.ands.sravniruhackathon.presentation.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,22 +30,61 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        setUpRv()
+        setUpRvObserver()
         setUpButtons()
+        enteredDataObserver()
+        headerCoeffsObserver()
 
         return binding.root
     }
 
-    private fun setUpButtons() = with(binding) {
+    override fun onSaveInstanceState(outState: Bundle) {
+        val recyclerView = binding.expandableCardLayout.rvInvisiblePart
+        val state = recyclerView.visibility == View.VISIBLE
+        outState.putString(CARD_VIEW_EXPANDED, state.toString())
 
-        calculateOsagoBtn.setOnClickListener() {
-            Navigation.findNavController(binding.root).navigate(R.id.action_mainFragment_to_offersFragment)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        val recyclerView = binding.expandableCardLayout.rvInvisiblePart
+        val savedState = savedInstanceState?.getString(CARD_VIEW_EXPANDED, "false")
+        if (savedState == "true") {
+            recyclerView.visibility = View.VISIBLE
+            binding.expandableCardLayout.expandImage.setImageResource(R.drawable.ic_baseline_expand_less_24)
         }
 
-        expandableCardLayout.expandableCardView.setOnClickListener() {
+        super.onViewStateRestored(savedInstanceState)
+    }
+
+    private fun setUpButtons() = with(binding) {
+
+        calculateOsagoBtn.setOnClickListener {
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_mainFragment_to_offersFragment)
+        }
+
+        expandableCardLayout.expandableCardView.setOnClickListener {
             expandCardView()
         }
 
+        regCityEditText.setOnClickListener { openEntBtmSheet(0) }
+        enginePowerEditText.setOnClickListener { openEntBtmSheet(1) }
+        quantityDriversEditText.setOnClickListener { openEntBtmSheet(2) }
+        minDriverAgeEditText.setOnClickListener { openEntBtmSheet(3) }
+        minDriverExpEditText.setOnClickListener { openEntBtmSheet(4) }
+        yearsWithoutAccidentsEditText.setOnClickListener { openEntBtmSheet(5) }
+
+    }
+
+    private fun openEntBtmSheet(chosenQuestion: Int) {
+        Navigation.findNavController(binding.root)
+            .navigate(R.id.action_mainFragment_to_enteringDataBtmSheet)
+        mainViewModel.chooseAnyQuestion(chosenQuestion)
+
+        binding.apply {
+
+        }
     }
 
     private fun expandCardView() = with(binding) {
@@ -67,9 +102,9 @@ class MainFragment : Fragment() {
             expandableCardLayout.expandableLayout,
             AutoTransition()
         )
-    }
+    }//в следующем таске сделаю плавную анимацию, пока что оставил поломанную
 
-    private fun setUpRv() = with(binding) {
+    private fun setUpRvObserver() = with(binding) {
 
         val recView = expandableCardLayout.rvInvisiblePart
         recView.itemAnimator = null
@@ -78,38 +113,48 @@ class MainFragment : Fragment() {
         recView.adapter = coeffsAdapter
         recView.layoutManager = LinearLayoutManager(requireContext())
 
-        mainViewModel.currentCoeffsData.observe(requireActivity(), { data ->
+        mainViewModel.currentCoeffsData.observe(viewLifecycleOwner, { data ->
             if (data != null) {
-
-                setHeaderCoeffs(data)
+                mainViewModel.updateHeaderCoeffs(data)
                 coeffsAdapter.submitList(data)
             }
         })
     }
 
-    private fun setHeaderCoeffs(list: List<Coeffs>) = with(binding) {
-        var coeffsHtmlText = ""
+    private fun enteredDataObserver() = with(binding) {
+        mainViewModel.enteredData.observe(viewLifecycleOwner, { data ->
+            if (data != null) {
+                Log.e("MainFragmentObserver", data.toString())
 
-        val color = String.format("#%06x", ContextCompat.getColor(requireContext(), R.color.MainBlue) and 0xffffff)
+                minDriverAgeInput.isEnabled = data.quantityDrivers != "Без ограничений"
 
-        list.forEachIndexed { index, coeffsList ->
+                regCityEditText.setText(data.regCity)
+                enginePowerEditText.setText(data.enginePower)
+                quantityDriversEditText.setText(data.quantityDrivers)
+                minDriverAgeEditText.setText(data.minDriverAge)
+                minDriverExpEditText.setText(data.minDriverExp)
+                yearsWithoutAccidentsEditText.setText(data.yearsWithoutAccidents)
 
-            if (index == list.lastIndex) {
-                coeffsHtmlText += "<font color=\"$color\">${coeffsList.headerValue}</font>"
-                return@forEachIndexed
+                enableDisableButton()
             }
-            coeffsHtmlText += "<font color=\"$color\">${coeffsList.headerValue}</font>×"
-
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            expandableCardLayout.coeffsText.text = Html.fromHtml(
-                coeffsHtmlText,
-                Html.FROM_HTML_MODE_LEGACY
-            )
-        } else {
-            expandableCardLayout.coeffsText.text = Html.fromHtml(coeffsHtmlText)
-        }
+        })
     }
 
+    private fun headerCoeffsObserver() = with(binding) {
+        mainViewModel.headerCoeffs.observe(viewLifecycleOwner, { headerLine ->
+            expandableCardLayout.coeffsText.text = headerLine
+        })
+    }
+
+    private fun enableDisableButton() = with(binding) {
+        calculateOsagoBtn.isEnabled = (
+                regCityEditText.text!!.isNotEmpty() && enginePowerEditText.text!!.isNotEmpty() &&
+                        quantityDriversEditText.text!!.isNotEmpty() &&
+                        minDriverExpEditText.text!!.isNotEmpty() && yearsWithoutAccidentsEditText.text!!.isNotEmpty()
+                )
+    }
+
+    companion object {
+        const val CARD_VIEW_EXPANDED = "card_view_expanded"
+    }
 }

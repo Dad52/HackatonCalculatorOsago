@@ -11,14 +11,14 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_mainFragment_to_enteringDataBtmSheet"
-            app:destination="@id/enteringDataBtmSheet" />
-        <action
             android:id="@+id/action_mainFragment_to_resultBtmSheet"
             app:destination="@id/resultBtmSheet" />
         <action
             android:id="@+id/action_mainFragment_to_offersFragment"
             app:destination="@id/offersFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_enteringDataBtmSheet"
+            app:destination="@id/enteringDataBtmSheet" />
     </fragment>
     <fragment
         android:id="@+id/offersFragment"
@@ -29,12 +29,12 @@
             android:id="@+id/action_offersFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/resultBtmSheet"
         android:name="com.ands.sravniruhackathon.presentation.fragments.ResultBtmSheet"
         android:label="fragment_result_btm_sheet"
         tools:layout="@layout/fragment_result_btm_sheet" />
-    <fragment
+    <dialog
         android:id="@+id/enteringDataBtmSheet"
         android:name="com.ands.sravniruhackathon.presentation.fragments.EnteringDataBtmSheet"
         android:label="fragment_entering_data_btm_sheet"

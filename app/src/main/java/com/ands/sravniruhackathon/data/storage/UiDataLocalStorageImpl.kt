@@ -1,16 +1,66 @@
 package com.ands.sravniruhackathon.data.storage
 
+import android.content.Context
+import android.util.Log
+import com.ands.sravniruhackathon.R
 import com.ands.sravniruhackathon.domain.entities.Coeffs
+import com.ands.sravniruhackathon.domain.entities.CoeffsResponse
+import com.ands.sravniruhackathon.domain.entities.UiDataEntBtmSht
+import com.ands.sravniruhackathon.domain.entities.UiDataEntBtmShtResponse
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.IOException
 
-class UiDataLocalStorageImpl: UiDataLocalStorage {
+class UiDataLocalStorageImpl(private val context: Context): UiDataLocalStorage {
+
     override fun getDefaultCoeffsData(): List<Coeffs> {
-        return listOf(
-                Coeffs("БТ", "БТ", "2 754 - 4 432 Р", "базовый тариф", "Устанавливает страховая компания"),
-                Coeffs("КМ", "КМ","0,6 - 1,6", "коэфф. мощности", "Чем мощнее автомобиль, тем дороже сраховой полис"),
-                Coeffs("КТ", "КТ", "0,64 - 1,99", "территориальный коэфф.", "Определяется по прописке собственника автомобиля"),
-                Coeffs("КБМ", "КБМ", "0,5 - 2,45", "коэфф. безаварифности", "Учитывается только самый высокий коэффициент из всех водителей"),
-                Coeffs("КВС", "КВС","0,90 - 1,93", "коэфф. возраст/стаж", "Чем больше возраст и стаж у вписанного в полис водителя, тем дешевле будет полис"),
-                Coeffs("КО", "КО", "1 или 1,99", "коэфф. ограничений", "Полис с ограниченным списком водителей будет стоить дешевле")
-        )
+        val jsonFileString = getJsonDataFromAsset(context, "defaultCoeffsData.json") ?: return emptyList()
+
+        val listType = object : TypeToken<CoeffsResponse>() {}.type
+        val coeffsResponse: CoeffsResponse = Gson().fromJson(jsonFileString, listType)
+
+        return coeffsResponse.factors
     }
+
+    override fun getUiEntBtmSheet(): List<UiDataEntBtmSht> {
+
+        val jsonFileString = getJsonDataFromAsset(context, "uiDataEntBtmSht.json") ?: return emptyList()
+
+        val listType = object : TypeToken<UiDataEntBtmShtResponse>() {}.type
+        val uiDataEntBtmShtResponse: UiDataEntBtmShtResponse = Gson().fromJson(jsonFileString, listType)
+
+        return uiDataEntBtmShtResponse.uiData
+    }
+
+    override fun getSearchList(itemId: String): List<String> {
+
+        val citiesArray = context.resources.getStringArray(R.array.citiesHints).toList()
+        val enginePowerArray = context.resources.getStringArray(R.array.enginePowerHints).toList()
+        val quantityDriversArray = context.resources.getStringArray(R.array.quantityDriversHints).toList()
+        val minDriverAgeArray = context.resources.getStringArray(R.array.minDriverAgeHints).toList()
+        val minDriverExpArray = context.resources.getStringArray(R.array.minDriverExpHints).toList()
+        val yearsWithoutAccidentsArray = context.resources.getStringArray(R.array.yearsWithoutAccidentsHints).toList()
+
+        val searchListData = mapOf<String, List<String>>(
+                "regCity" to citiesArray,
+                "enginePower" to enginePowerArray,
+                "quantityDrivers" to quantityDriversArray,
+                "minDriverAge" to minDriverAgeArray,
+                "minDriverExp" to minDriverExpArray,
+                "yearsWithoutAccidents" to yearsWithoutAccidentsArray
+        )
+        return searchListData.get(itemId) ?: emptyList()
+    }
+
+    private fun getJsonDataFromAsset(context: Context, fileName: String): String? {
+        val jsonString: String
+        try {
+            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+            return null
+        }
+        return jsonString
+    }
+
 }

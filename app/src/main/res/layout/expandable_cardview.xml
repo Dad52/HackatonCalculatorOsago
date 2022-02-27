@@ -16,6 +16,7 @@
         android:layout_marginEnd="@dimen/margin16"
         android:animateLayoutChanges="true"
         android:minHeight="68dp"
+        app:cardElevation="0dp"
         app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
