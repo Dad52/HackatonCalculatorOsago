@@ -2,10 +2,7 @@ package com.ands.sravniruhackathon.data.repository
 
 import com.ands.sravniruhackathon.data.network.ApiService
 import com.ands.sravniruhackathon.data.storage.UiDataLocalStorage
-import com.ands.sravniruhackathon.domain.entities.Coeffs
-import com.ands.sravniruhackathon.domain.entities.CoeffsResponse
-import com.ands.sravniruhackathon.domain.entities.EnteredData
-import com.ands.sravniruhackathon.domain.entities.UiDataEntBtmSht
+import com.ands.sravniruhackathon.domain.entities.*
 import com.ands.sravniruhackathon.domain.repository.Repository
 import retrofit2.Response
 
@@ -18,10 +15,6 @@ class RepositoryImpl(
         return uiDataLocalStorage.getDefaultCoeffsData()
     }
 
-    override suspend fun getCoeffs(data: EnteredData): Response<CoeffsResponse> {
-        return apiService.getCoeffs(data = data)
-    }
-
     override fun getSearchList(itemId: String): List<String> {
         return uiDataLocalStorage.getSearchList(itemId = itemId)
     }
@@ -30,5 +23,12 @@ class RepositoryImpl(
         return uiDataLocalStorage.getUiEntBtmSheet()
     }
 
+    override suspend fun getCoeffs(data: EnteredData): Response<CoeffsResponse> {
+        return apiService.getCoeffs(data = data)
+    }
+
+    override suspend fun getOffers(data: EnteredData): Response<OffersResponse> {
+        return apiService.getOffers(data = data)
+    }
 
 }

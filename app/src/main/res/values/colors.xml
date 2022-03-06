@@ -22,4 +22,5 @@
     <color name="TextColorDark20">#B3BAC3</color>
 
     <color name="GrayStatusBar">#818C99</color>
+    <color name="borderGray">#D8E4EB</color>
 </resources>

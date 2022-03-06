@@ -7,6 +7,7 @@ import com.ands.sravniruhackathon.domain.entities.Coeffs
 import com.ands.sravniruhackathon.domain.entities.CoeffsResponse
 import com.ands.sravniruhackathon.domain.entities.UiDataEntBtmSht
 import com.ands.sravniruhackathon.domain.entities.UiDataEntBtmShtResponse
+import com.ands.sravniruhackathon.domain.utils.Constants
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
@@ -42,14 +43,14 @@ class UiDataLocalStorageImpl(private val context: Context): UiDataLocalStorage {
         val yearsWithoutAccidentsArray = context.resources.getStringArray(R.array.yearsWithoutAccidentsHints).toList()
 
         val searchListData = mapOf<String, List<String>>(
-                "regCity" to citiesArray,
-                "enginePower" to enginePowerArray,
-                "quantityDrivers" to quantityDriversArray,
-                "minDriverAge" to minDriverAgeArray,
-                "minDriverExp" to minDriverExpArray,
-                "yearsWithoutAccidents" to yearsWithoutAccidentsArray
+                Constants.REG_CITY to citiesArray,
+                Constants.ENGINE_POWER to enginePowerArray,
+                Constants.QUANTITY_DRIVERS to quantityDriversArray,
+                Constants.MIN_DRIVER_AGE to minDriverAgeArray,
+                Constants.MIN_DRIVER_EXP to minDriverExpArray,
+                Constants.YEARS_WITHOUT_ACCIDENTS to yearsWithoutAccidentsArray
         )
-        return searchListData.get(itemId) ?: emptyList()
+        return searchListData[itemId] ?: emptyList()
     }
 
     private fun getJsonDataFromAsset(context: Context, fileName: String): String? {

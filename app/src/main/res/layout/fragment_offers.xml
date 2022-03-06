@@ -1,16 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OffersFragment"
-    >
+    android:background="@color/MainGray"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context=".presentation.fragments.OffersFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/bottomCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/mainTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="@dimen/margin16"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/CalculatePriceTitle"
+                android:textColor="@color/MainBlack"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/backBtnImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/backBtnImage"
+                app:layout_constraintTop_toTopOf="@+id/backBtnImage" />
+
+            <include
+                android:id="@+id/expandableCardLayout"
+                layout="@layout/expandable_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mainTitle" />
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Welcome to OffersFragment" />
-</FrameLayout>
+            <LinearLayout
+
+                android:id="@+id/shimmerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/expandableCardLayout">
+
+                <include
+                    android:id="@+id/innerShimmerItem1"
+                    layout="@layout/offers_shimmer" />
+
+                <include layout="@layout/offers_shimmer" />
+
+                <include layout="@layout/offers_shimmer" />
+
+                <include layout="@layout/offers_shimmer" />
+
+                <include layout="@layout/offers_shimmer" />
+
+                <include layout="@layout/offers_shimmer" />
+
+                <include layout="@layout/offers_shimmer" />
+
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOffers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:clipChildren="false"
+                android:clipToPadding="true"
+                android:elevation="1dp"
+                android:overScrollMode="never"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/expandableCardLayout" />
+
+            <ImageView
+                android:id="@+id/backBtnImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/backLetter"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bottomCardView"
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/calculateExactPriceBtn"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin16"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/margin16"
+            android:layout_marginBottom="@dimen/margin16"
+            android:enabled="false"
+            android:text="@string/CalculateExactPriceAndBuy"
+            android:textAllCaps="false" />
+
+        <View
+            android:layout_width="64dp"
+            android:layout_height="3dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/shape_corner_radius_12"
+            android:backgroundTint="@color/MainHintTextColor" />
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

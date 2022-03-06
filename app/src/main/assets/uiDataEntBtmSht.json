@@ -4,31 +4,31 @@
       "id": "regCity",
       "title": "Город регистрации собственника",
       "hint": "Введите город",
-      "buttonTitle": "Далее >"
+      "buttonTitle": "Далее"
     },
     {
       "id": "enginePower",
       "title": "Мощность автомобиля",
       "hint": "Введите мощность автомобиля",
-      "buttonTitle": "Далее >"
+      "buttonTitle": "Далее"
     },
     {
       "id": "quantityDrivers",
       "title": "Количество водителей",
       "hint": "Введите количество водителей",
-      "buttonTitle": "Далее >"
+      "buttonTitle": "Далее"
     },
     {
       "id": "minDriverAge",
       "title": "Возраст младшего из водителей",
       "hint": "Введите возраст младшего водителя",
-      "buttonTitle": "Далее >"
+      "buttonTitle": "Далее"
     },
     {
       "id": "minDriverExp",
       "title": "Минимальный стаж водителей",
       "hint": "Введите минимальный стаж водителей",
-      "buttonTitle": "Далее >"
+      "buttonTitle": "Далее"
     },
     {
       "id": "yearsWithoutAccidents",

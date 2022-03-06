@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/meme"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="300dp"
     tools:context="presentation.fragments.EnteringDataBtmSheet"
-
+    app:behavior_hideable="true"
+    app:behavior_skipCollapsed="true"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    app:gestureInsetBottomIgnored="true"
     >
 
     <View
@@ -53,41 +58,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialogTitle" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/nextBtn"
         style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
-
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin16"
         android:text="@string/next"
         android:textColor="@color/MainWhite"
         app:cornerRadius="8dp"
+        app:icon="@drawable/ic_nextbtmarrow"
+        app:iconGravity="end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchList"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ListView
         android:id="@+id/searchList"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="@dimen/margin16"
+        android:layout_marginEnd="@dimen/margin16"
         android:nestedScrollingEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/nextBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
-    <Button
+    <ImageButton
         android:id="@+id/backBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:backgroundTint="#FFFFFF"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/button_white_border"
         android:elevation="0dp"
-        android:text="@string/backLetter"
+        android:src="@drawable/ic_backbtmarrow"
         android:textColor="@color/MainBlue"
         android:textSize="20sp"
         app:cornerRadius="8dp"

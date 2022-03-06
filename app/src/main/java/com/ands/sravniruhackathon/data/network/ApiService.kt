@@ -2,6 +2,7 @@ package com.ands.sravniruhackathon.data.network
 
 import com.ands.sravniruhackathon.domain.entities.CoeffsResponse
 import com.ands.sravniruhackathon.domain.entities.EnteredData
+import com.ands.sravniruhackathon.domain.entities.OffersResponse
 import com.ands.sravniruhackathon.domain.utils.Constants
 import retrofit2.Response
 import retrofit2.http.Body
@@ -11,5 +12,8 @@ interface ApiService {
 
     @POST(Constants.END_POINT_COEFFS)
     suspend fun getCoeffs(@Body data: EnteredData): Response<CoeffsResponse>
+
+    @POST(Constants.END_POINT_CALCULATION)
+    suspend fun getOffers(@Body data: EnteredData): Response<OffersResponse>
 
 }

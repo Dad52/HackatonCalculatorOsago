@@ -33,7 +33,13 @@
         android:id="@+id/resultBtmSheet"
         android:name="com.ands.sravniruhackathon.presentation.fragments.ResultBtmSheet"
         android:label="fragment_result_btm_sheet"
-        tools:layout="@layout/fragment_result_btm_sheet" />
+        tools:layout="@layout/fragment_result_btm_sheet" >
+        <argument
+            android:name="offer"
+            app:argType="com.ands.sravniruhackathon.domain.entities.Offers"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
     <dialog
         android:id="@+id/enteringDataBtmSheet"
         android:name="com.ands.sravniruhackathon.presentation.fragments.EnteringDataBtmSheet"

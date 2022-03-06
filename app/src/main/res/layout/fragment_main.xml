@@ -41,9 +41,9 @@
                 android:id="@+id/expandableCardLayout"
                 layout="@layout/expandable_cardview"
                 android:layout_width="match_parent"
-                android:elevation="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:elevation="0dp"
                 android:paddingBottom="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,9 +56,10 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="@dimen/margin16"
                 android:layout_marginBottom="1dp"
+                android:animateLayoutChanges="true"
                 android:padding="@dimen/margin16"
-                app:cardElevation="0dp"
                 app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +69,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:animateLayoutChanges="true"
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout

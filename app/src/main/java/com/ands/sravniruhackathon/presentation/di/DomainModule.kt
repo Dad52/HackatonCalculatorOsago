@@ -39,4 +39,9 @@ class DomainModule {
         return MakeHeaderCoeffsUseCase(context = context)
     }
 
+    @Provides
+    fun provideGetStringValuesUseCase(@ApplicationContext context: Context): GetStringValuesUseCase {
+        return GetStringValuesUseCase(context = context)
+    }
+
 }

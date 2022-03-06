@@ -1,18 +1,18 @@
 package com.ands.sravniruhackathon.presentation.fragments
 
 import android.os.Bundle
-import android.transition.AutoTransition
-import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ands.sravniruhackathon.R
 import com.ands.sravniruhackathon.databinding.FragmentMainBinding
+import com.ands.sravniruhackathon.domain.entities.Offers
 import com.ands.sravniruhackathon.presentation.adapters.CoeffsAdapter
 import com.ands.sravniruhackathon.presentation.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,14 +21,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
-    private lateinit var binding: FragmentMainBinding
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+
     private val mainViewModel: MainViewModel by activityViewModels()
+    private var isCardViewExpanded: Boolean = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        isCardViewExpanded = savedInstanceState?.getBoolean(CARD_VIEW_EXPANDED) ?: false
 
         setUpRvObserver()
         setUpButtons()
@@ -39,29 +43,24 @@ class MainFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        val recyclerView = binding.expandableCardLayout.rvInvisiblePart
-        val state = recyclerView.visibility == View.VISIBLE
-        outState.putString(CARD_VIEW_EXPANDED, state.toString())
-
+        outState.putBoolean(CARD_VIEW_EXPANDED, isCardViewExpanded)
         super.onSaveInstanceState(outState)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        val recyclerView = binding.expandableCardLayout.rvInvisiblePart
-        val savedState = savedInstanceState?.getString(CARD_VIEW_EXPANDED, "false")
-        if (savedState == "true") {
-            recyclerView.visibility = View.VISIBLE
-            binding.expandableCardLayout.expandImage.setImageResource(R.drawable.ic_baseline_expand_less_24)
-        }
-
-        super.onViewStateRestored(savedInstanceState)
     }
 
     private fun setUpButtons() = with(binding) {
 
+        parentFragmentManager.setFragmentResultListener(
+                OffersFragment.REQUEST_CODE_FOR_OFFER, viewLifecycleOwner
+        ) { _, data ->
+            val offer = data.getParcelable<Offers>(OffersFragment.CHOSEN_OFFER_KEY)
+
+            val direction = MainFragmentDirections.actionMainFragmentToResultBtmSheet(offer = offer)
+            Navigation.findNavController(binding.root).navigate(direction)
+        }
+
         calculateOsagoBtn.setOnClickListener {
             Navigation.findNavController(binding.root)
-                .navigate(R.id.action_mainFragment_to_offersFragment)
+                    .navigate(R.id.action_mainFragment_to_offersFragment)
         }
 
         expandableCardLayout.expandableCardView.setOnClickListener {
@@ -75,33 +74,33 @@ class MainFragment : Fragment() {
         minDriverExpEditText.setOnClickListener { openEntBtmSheet(4) }
         yearsWithoutAccidentsEditText.setOnClickListener { openEntBtmSheet(5) }
 
+        if (isCardViewExpanded) {
+            expandableCardLayout.apply {
+                rvInvisiblePart.isVisible = true
+                expandImage.setImageResource(R.drawable.ic_baseline_expand_less_24)
+            }
+        }
     }
 
     private fun openEntBtmSheet(chosenQuestion: Int) {
         Navigation.findNavController(binding.root)
-            .navigate(R.id.action_mainFragment_to_enteringDataBtmSheet)
+                .navigate(R.id.action_mainFragment_to_enteringDataBtmSheet)
         mainViewModel.chooseAnyQuestion(chosenQuestion)
-
-        binding.apply {
-
-        }
     }
 
     private fun expandCardView() = with(binding) {
 
         val recyclerView = expandableCardLayout.rvInvisiblePart
+        isCardViewExpanded = !isCardViewExpanded
 
-        if (recyclerView.visibility == View.GONE) {
-            recyclerView.visibility = View.VISIBLE
-            expandableCardLayout.expandImage.setImageResource(R.drawable.ic_baseline_expand_less_24)
-        } else {
-            recyclerView.visibility = View.GONE
+        if (recyclerView.isVisible) {
+            recyclerView.isVisible = false
             expandableCardLayout.expandImage.setImageResource(R.drawable.ic_baseline_expand_more_24)
+        } else {
+            recyclerView.isVisible = true
+            expandableCardLayout.expandImage.setImageResource(R.drawable.ic_baseline_expand_less_24)
         }
-        TransitionManager.beginDelayedTransition(
-            expandableCardLayout.expandableLayout,
-            AutoTransition()
-        )
+
     }//в следующем таске сделаю плавную анимацию, пока что оставил поломанную
 
     private fun setUpRvObserver() = with(binding) {
@@ -124,9 +123,8 @@ class MainFragment : Fragment() {
     private fun enteredDataObserver() = with(binding) {
         mainViewModel.enteredData.observe(viewLifecycleOwner, { data ->
             if (data != null) {
-                Log.e("MainFragmentObserver", data.toString())
-
-                minDriverAgeInput.isEnabled = data.quantityDrivers != "Без ограничений"
+                minDriverAgeInput.isEnabled =
+                        data.quantityDrivers != binding.root.context.getString(R.string.withoutLimits)
 
                 regCityEditText.setText(data.regCity)
                 enginePowerEditText.setText(data.enginePower)

@@ -1,6 +1,7 @@
 package com.ands.sravniruhackathon.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +13,17 @@ import com.ands.sravniruhackathon.presentation.viewmodels.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class EnteringDataBtmSheet : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentEnteringDataBtmSheetBinding
     private val mainViewModel: MainViewModel by activityViewModels()
+    private var itemId: String = ""
+    private var isLastQuestion: Boolean = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = FragmentEnteringDataBtmSheetBinding.inflate(inflater, container, false)
 
@@ -32,23 +34,34 @@ class EnteringDataBtmSheet : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun setUpSearchList() {
+    override fun onDestroy() {
+        if (itemId.isNotBlank() && !isLastQuestion) {
+            mainViewModel.addEnteredData(
+                    itemId = itemId,
+                    value = binding.searchView.query.toString()
+            )
+            mainViewModel.getCoeffs()
+        }
+        super.onDestroy()
+    }
 
-        mainViewModel.searchListDataLiveData.observe(viewLifecycleOwner, { list ->
+    private fun setUpSearchList() = with(binding) {
+
+        mainViewModel.searchListData.observe(viewLifecycleOwner, { list ->
 
             val searchAdapter: ArrayAdapter<String> = ArrayAdapter(
-                requireContext(), android.R.layout.simple_list_item_1, list
+                    requireContext(), android.R.layout.simple_list_item_1, list
             )
 
-            binding.searchList.adapter = searchAdapter
+            searchList.adapter = searchAdapter
 
-            binding.searchList.setOnItemClickListener { view, _, position, _ ->
-                binding.searchView.setQuery(view.getItemAtPosition(position).toString(), false)
+            searchList.setOnItemClickListener { view, _, position, _ ->
+                searchView.setQuery(view.getItemAtPosition(position).toString(), false)
             }
 
-            binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    binding.searchView.clearFocus()
+                    searchView.clearFocus()
                     if (list.contains(query)) {
                         searchAdapter.filter.filter(query)
                     }
@@ -66,6 +79,7 @@ class EnteringDataBtmSheet : BottomSheetDialogFragment() {
     private fun questionObserver() = with(binding) {
         mainViewModel.currentQuestionUi.observe(viewLifecycleOwner, { item ->
 
+            itemId = item.id
             dialogTitle.text = item.title
             searchView.queryHint = item.hint
             nextBtn.text = item.buttonTitle
@@ -74,19 +88,25 @@ class EnteringDataBtmSheet : BottomSheetDialogFragment() {
             mainViewModel.changeSearchList(itemId = item.id)
             mainViewModel.setEntDataForInput(itemId = item.id)
 
-            if (item.id == "regCity") backBtn.visibility = View.GONE
+            val firstTitleId = mainViewModel.getFirstTitleId()
+
+            if (item.id == firstTitleId) backBtn.visibility = View.GONE
             else backBtn.visibility = View.VISIBLE
 
             backBtn.setOnClickListener() {
-                mainViewModel.changeQuestionNumber("", -1)
+                mainViewModel.changeQuestionNumber(variable = -1)
             }
 
             nextBtn.setOnClickListener {
                 mainViewModel.addEnteredData(itemId = item.id, value = searchView.query.toString())
-                searchView.setQuery("", false)
+                if (item.id != mainViewModel.getLastTitleId()) {
+                    searchView.setQuery("", false)
+                    return@setOnClickListener
+                }
 
                 if (item.id == mainViewModel.getLastTitleId()) {
                     mainViewModel.getCoeffs()
+                    isLastQuestion = true
                     dismiss()
                 }
             }

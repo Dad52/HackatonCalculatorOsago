@@ -22,6 +22,15 @@
     <string name="SomeKindOfTitle">Какой-то заголовок</string>
     <string name="next">Далее</string>
     <string name="backLetter"><![CDATA[<]]></string>
+    <string name="ready">Готово</string>
+    <string name="PolicySuccIssued">Ваш полис успешно оформлен</string>
+    <string name="withoutLimits">Без ограничений</string>
+    <string name="CalculatePriceTitle">Расчет цены полиса</string>
+    <string name="colorLattice">#%1$s</string>
+    <string name="CalculateExactPriceAndBuy">Рассчитать точную цену и купить</string>
+    <string name="textview">TextView</string>
+    <string name="examplePrice">101 232 $</string>
+    <string name="C">C</string>
 
     <string-array name="citiesHints">
         <item>Москва</item>
@@ -43,7 +52,7 @@
     </string-array>
 
     <string-array name="quantityDriversHints">
-        <item>Без ограничений</item>
+        <item>@string/withoutLimits</item>
         <item>1 водитель</item>
         <item>2 водителя</item>
         <item>3 водителя</item>
