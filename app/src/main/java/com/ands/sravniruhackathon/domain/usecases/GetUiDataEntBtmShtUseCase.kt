@@ -5,7 +5,7 @@ import com.ands.sravniruhackathon.domain.repository.Repository
 
 class GetUiDataEntBtmShtUseCase(private val repository: Repository) {
 
-    fun execute(): List<UiDataEntBtmSht> {
+    fun execute(): List<UiDataEntBtmSht>? {
         return repository.getUiEntBrmSht()
     }
 

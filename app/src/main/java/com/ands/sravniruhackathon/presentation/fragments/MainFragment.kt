@@ -101,7 +101,7 @@ class MainFragment : Fragment() {
             expandableCardLayout.expandImage.setImageResource(R.drawable.ic_baseline_expand_less_24)
         }
 
-    }//в следующем таске сделаю плавную анимацию, пока что оставил поломанную
+    }
 
     private fun setUpRvObserver() = with(binding) {
 
@@ -145,11 +145,17 @@ class MainFragment : Fragment() {
     }
 
     private fun enableDisableButton() = with(binding) {
+
+        val withoutLimitsText = binding.root.context.getString(R.string.withoutLimits)
+
         calculateOsagoBtn.isEnabled = (
                 regCityEditText.text!!.isNotEmpty() && enginePowerEditText.text!!.isNotEmpty() &&
-                        quantityDriversEditText.text!!.isNotEmpty() &&
-                        minDriverExpEditText.text!!.isNotEmpty() && yearsWithoutAccidentsEditText.text!!.isNotEmpty()
+                        quantityDriversEditText.text!!.isNotEmpty() && minDriverExpEditText.text!!.isNotEmpty() &&
+                        yearsWithoutAccidentsEditText.text!!.isNotEmpty() &&
+                        (minDriverAgeEditText.text!!.isNotEmpty() || quantityDriversEditText.text!!.toString() == withoutLimitsText)
+
                 )
+
     }
 
     companion object {

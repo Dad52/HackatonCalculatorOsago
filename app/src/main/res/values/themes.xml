@@ -39,7 +39,9 @@
     </style>
 
     <style name="TextInputLayoutStyle" parent="Widget.Material3.CardView.Filled">
-        <item name="android:layout_height">60dp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginStart">@dimen/margin16</item>
         <item name="android:layout_marginEnd">@dimen/margin16</item>
         <item name="boxStrokeWidth">0dp</item>
@@ -62,7 +64,13 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:maxLength">40</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:background">@drawable/shape_corner_radius_12</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">

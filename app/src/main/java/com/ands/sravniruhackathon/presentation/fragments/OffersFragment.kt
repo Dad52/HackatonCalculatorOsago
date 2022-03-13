@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.ImageLoader
 import com.ands.sravniruhackathon.R
 import com.ands.sravniruhackathon.databinding.FragmentOffersBinding
 import com.ands.sravniruhackathon.domain.entities.Offers
@@ -18,6 +19,7 @@ import com.ands.sravniruhackathon.presentation.adapters.CoeffsAdapter
 import com.ands.sravniruhackathon.presentation.adapters.OffersAdapter
 import com.ands.sravniruhackathon.presentation.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OffersFragment : Fragment() {
@@ -95,6 +97,7 @@ class OffersFragment : Fragment() {
 
     private fun offersObserver() = with(binding) {
 
+
         val offersAdapter = OffersAdapter(object : OffersAdapter.ItemClick {
             override fun sendResultBack(offerInfo: Offers) {
                 parentFragmentManager.setFragmentResult(
@@ -103,7 +106,7 @@ class OffersFragment : Fragment() {
                 )
                 findNavController().popBackStack()
             }
-        })
+        }, imageLoader = mainViewModel.imageLoaderCoil)
 
         rvOffers.layoutManager = LinearLayoutManager(binding.root.context)
         rvOffers.adapter = offersAdapter

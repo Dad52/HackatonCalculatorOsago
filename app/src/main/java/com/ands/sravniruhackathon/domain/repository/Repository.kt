@@ -5,11 +5,11 @@ import retrofit2.Response
 
 interface Repository {
 
-    fun getDefaultCoeffsData(): List<Coeffs>
+    fun getDefaultCoeffsData(): List<Coeffs>?
 
-    fun getSearchList(itemId: String): List<String>
+    fun getSearchList(itemId: String): List<String>?
 
-    fun getUiEntBrmSht(): List<UiDataEntBtmSht>
+    fun getUiEntBrmSht(): List<UiDataEntBtmSht>?
 
     suspend fun getCoeffs(data: EnteredData) : Response<CoeffsResponse>
 

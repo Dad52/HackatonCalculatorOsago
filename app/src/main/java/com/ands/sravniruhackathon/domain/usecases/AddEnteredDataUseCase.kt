@@ -1,28 +1,29 @@
 package com.ands.sravniruhackathon.domain.usecases
 
 import com.ands.sravniruhackathon.domain.entities.EnteredData
+import com.ands.sravniruhackathon.domain.utils.Constants
 
 class AddEnteredDataUseCase {
 
     fun execute(itemId: String, data: EnteredData, value: String): EnteredData {
 
         when (itemId) {
-            "regCity" -> {
+            Constants.REG_CITY -> {
                 data.regCity = value
             }
-            "enginePower" -> {
+            Constants.ENGINE_POWER -> {
                 data.enginePower = value
             }
-            "quantityDrivers" -> {
+            Constants.QUANTITY_DRIVERS -> {
                 data.quantityDrivers = value
             }
-            "minDriverAge" -> {
+            Constants.MIN_DRIVER_AGE -> {
                 data.minDriverAge = value
             }
-            "minDriverExp" -> {
+            Constants.MIN_DRIVER_EXP -> {
                 data.minDriverExp = value
             }
-            "yearsWithoutAccidents" -> {
+            Constants.YEARS_WITHOUT_ACCIDENTS -> {
                 data.yearsWithoutAccidents = value
             }
         }

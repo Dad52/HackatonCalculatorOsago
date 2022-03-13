@@ -1,6 +1,8 @@
 package com.ands.sravniruhackathon.presentation.di
 
 import android.content.Context
+import coil.ImageLoader
+import coil.decode.SvgDecoder
 import com.ands.sravniruhackathon.data.network.ApiService
 import com.ands.sravniruhackathon.data.repository.RepositoryImpl
 import com.ands.sravniruhackathon.data.storage.UiDataLocalStorage
@@ -34,7 +36,18 @@ class DataModule {
     }
 
     @Provides
+    @Singleton
     fun provideBaseUrl() = Constants.BASE_URL
+
+    @Provides
+    @Singleton
+    fun provideImageLoader(@ApplicationContext context: Context): ImageLoader {
+        return ImageLoader.Builder(context)
+                .componentRegistry {
+                    add(SvgDecoder(context))
+                }
+                .build()
+    }
 
     @Provides
     @Singleton

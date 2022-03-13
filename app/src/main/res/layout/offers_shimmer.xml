@@ -35,14 +35,12 @@
         android:elevation="50dp"
         android:minHeight="68dp"
         android:outlineProvider="none"
-        app:cardCornerRadius="16dp"
+        app:cardCornerRadius="@dimen/margin16"
         app:cardElevation="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/innerShimmer"
@@ -61,9 +59,9 @@
                     android:layout_height="36dp"
                     android:layout_margin="@dimen/margin16"
                     android:backgroundTint="@color/MainGray"
-                    android:elevation="0dp"
+                    android:elevation="@dimen/flatCardElevation0dp"
                     app:cardCornerRadius="8dp"
-                    app:cardElevation="0dp"
+                    app:cardElevation="@dimen/flatCardElevation0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -76,7 +74,7 @@
                     style="@style/ValueStyle"
                     android:layout_width="0dp"
                     android:layout_height="24dp"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="@dimen/margin12"
                     android:layout_marginEnd="40dp"
                     android:background="@color/MainGray"
 
@@ -104,7 +102,7 @@
                     style="@style/ValueStyle"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="@dimen/margin16"
                     android:background="@color/MainGray"
                     android:text=""
                     android:textSize="20sp"

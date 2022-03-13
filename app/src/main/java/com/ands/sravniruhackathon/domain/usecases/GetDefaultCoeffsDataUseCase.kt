@@ -5,7 +5,7 @@ import com.ands.sravniruhackathon.domain.repository.Repository
 
 class GetDefaultCoeffsDataUseCase(private val repository: Repository) {
 
-    fun execute(): List<Coeffs> {
+    fun execute(): List<Coeffs>? {
         return repository.getDefaultCoeffsData()
     }
 

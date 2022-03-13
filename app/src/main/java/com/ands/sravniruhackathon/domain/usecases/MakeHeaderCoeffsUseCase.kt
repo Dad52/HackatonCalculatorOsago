@@ -19,10 +19,10 @@ class MakeHeaderCoeffsUseCase(private val context: Context) {
         list.forEachIndexed { index, coeffsList ->
 
             if (index == list.lastIndex) {
-                coeffsHtmlText += "<font color=\"$color\">${coeffsList.headerValue}</font>"
+                coeffsHtmlText += context.getString(R.string.LastCoeffPlaceholder, color, coeffsList.headerValue)
                 return@forEachIndexed
             }
-            coeffsHtmlText += "<font color=\"$color\">${coeffsList.headerValue}</font>×"
+            coeffsHtmlText += context.getString(R.string.CoeffWithDividerPlaceholder, color, coeffsList.headerValue)
 
         }
 

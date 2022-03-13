@@ -10,6 +10,8 @@
     <string name="YearsWithoutAccidentsText">Сколько лет не было аварий</string>
     <string name="CoeffsNamePlaceholder">(%1$s)</string>
     <string name="PricePlaceholder">%1$s ₽</string>
+    <string name="CoeffWithDividerPlaceholder"><![CDATA[<font color="%1$s">%2$s</font>×]]></string>
+    <string name="LastCoeffPlaceholder"><![CDATA[<font color="%1$s">%2$s</font>]]></string>
     <string name="calculateOsago">Калькулятор ОСАГО</string>
     <string name="YourCoeffs">Ваши коэффициенты</string>
     <string name="expand">expand</string>

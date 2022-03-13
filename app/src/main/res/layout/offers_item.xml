@@ -25,14 +25,14 @@
         android:id="@+id/expandableCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/margin16"
         android:animateLayoutChanges="true"
         android:clipChildren="true"
         android:clipToPadding="true"
         android:elevation="50dp"
         android:minHeight="68dp"
         android:outlineProvider="none"
-        app:cardCornerRadius="16dp"
+        app:cardCornerRadius="@dimen/margin16"
         app:cardElevation="100dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,6 +51,7 @@
                 android:layout_height="36dp"
                 android:layout_margin="@dimen/margin16"
                 app:cardCornerRadius="8dp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -64,26 +65,34 @@
                     android:text="@string/C"
                     android:textAlignment="center"
                     android:textSize="26sp"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:id="@+id/companyIcon"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/textview"
-                    android:cropToPadding="true"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/ic_baseline_error_24" />
+                    android:visibility="visible" />
 
             </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/companyIcon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="-4dp"
+                android:layout_marginTop="-4dp"
+                android:layout_marginEnd="-4dp"
+                android:layout_marginBottom="-4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/textview"
+                android:cropToPadding="true"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="@+id/bgCompanyIcon"
+                app:layout_constraintEnd_toEndOf="@+id/bgCompanyIcon"
+                app:layout_constraintStart_toStartOf="@+id/bgCompanyIcon"
+                app:layout_constraintTop_toTopOf="@+id/bgCompanyIcon"
+                app:srcCompat="@drawable/ic_baseline_error_24" />
 
             <TextView
                 android:id="@+id/companyName"
                 style="@style/ValueStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/margin12"
                 android:layout_marginTop="-4dp"
                 android:layout_marginEnd="24dp"
                 android:text="@string/textview"
@@ -108,7 +117,7 @@
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/margin12"
                 android:layout_marginTop="5dp"
                 android:contentDescription="@string/textview"
                 app:layout_constraintBottom_toBottomOf="@+id/bgCompanyIcon"
@@ -121,7 +130,7 @@
                 style="@style/ValueStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="@dimen/margin16"
                 android:text="@string/examplePrice"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/bgCompanyIcon"

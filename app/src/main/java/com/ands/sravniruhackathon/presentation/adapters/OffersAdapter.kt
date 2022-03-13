@@ -1,7 +1,7 @@
 package com.ands.sravniruhackathon.presentation.adapters
 
-import android.graphics.Outline
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
-import coil.decode.SvgDecoder
 import coil.load
 import com.ands.sravniruhackathon.R
 import com.ands.sravniruhackathon.databinding.OffersItemBinding
@@ -18,8 +17,10 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
 
-class OffersAdapter(private val itemClick: ItemClick) :
-        ListAdapter<Offers, OffersAdapter.ItemHolder>(ItemComparator()) {
+class OffersAdapter(
+    private val itemClick: ItemClick,
+    private val imageLoader: ImageLoader
+) : ListAdapter<Offers, OffersAdapter.ItemHolder>(ItemComparator()) {
 
     class ItemComparator : DiffUtil.ItemCallback<Offers>() {
         override fun areItemsTheSame(oldItem: Offers, newItem: Offers): Boolean {
@@ -32,41 +33,40 @@ class OffersAdapter(private val itemClick: ItemClick) :
 
     }
 
-    class ItemHolder(private val binding: OffersItemBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+    class ItemHolder(private val binding: OffersItemBinding, private val imageLoader: ImageLoader) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(offerInfo: Offers, itemClick: ItemClick) = with(binding) {
 
-            bgCompanyIcon.setCardBackgroundColor(getColorInt(offerInfo.branding.backgroundColor))//или toInt
-
-            val imageLoader = ImageLoader.Builder(binding.root.context)
-                    .componentRegistry {
-                        add(SvgDecoder(binding.root.context))
-                    }
-                    .build()
-
             companyIcon.contentDescription = offerInfo.branding.iconTitle
             companyIcon.load(offerInfo.branding.bankLogoUrlSVG, imageLoader = imageLoader) {
-                size(70)
+                size(100)
                 scale(coil.size.Scale.FILL)
                 precision(coil.size.Precision.EXACT)
                 listener(
-                        onError = { _, _ ->
-                            companyIcon.setImageDrawable(null)
-                            imageDescription.apply {
-                                isVisible = true
-                                text = offerInfo.branding.iconTitle
-                                setTextColor(getColorInt(offerInfo.branding.fontColor))
-                            }
+                    onError = { _, _ ->
+
+                        companyIcon.setImageDrawable(null)
+
+                        bgCompanyIcon.apply {
+                            isVisible = true
+                            setCardBackgroundColor(getColorInt(offerInfo.branding.backgroundColor))
                         }
+
+                        imageDescription.apply {
+                            text = offerInfo.branding.iconTitle
+                            setTextColor(getColorInt(offerInfo.branding.fontColor))
+                        }
+
+                    }
                 )
-            }//приходят неправильные цвета с мока, размер оставил, как на макете. Как я понимаю, цвета изменены специально, поэтому оставил все так
+            }
             companyIcon.contentDescription = offerInfo.branding.iconTitle
             companyName.text = offerInfo.name
             companyRating.text = offerInfo.rating.toString()
             offerPrice.text = binding.root.context.getString(
-                    R.string.PricePlaceholder,
-                    thousandSeparator(offerInfo.price.toString().toDouble())
+                R.string.PricePlaceholder,
+                thousandSeparator(offerInfo.price.toString().toDouble())
             )
 
             itemView.setOnClickListener {
@@ -90,11 +90,11 @@ class OffersAdapter(private val itemClick: ItemClick) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder(
-                OffersItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                )
+            OffersItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ), imageLoader = imageLoader
         )
     }
 
